@@ -53,6 +53,8 @@ Route::group(['middleware' => 'api'], function ($router) {
   Route::get('posts/{id}', 'PostController@show');
   Route::get('users/{id}/posts', 'UserController@show');
 
+   //Newsletter Subscription
+
   //public comments
   Route::get('posts/{id}/comments', 'PostController@show');
 
