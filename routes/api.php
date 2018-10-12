@@ -26,10 +26,9 @@ Route::group(['middleware' => ['api', 'auth']], function () {
        Route::post('refresh', 'AuthController@refresh');
        Route::post('me', 'AuthController@me');
 
- });
        //reset password routes
-  	   Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
-       Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+       Route::post('changepassword', 'ResetPasswordController@changePassword');
+ });
     
        Route::resource('users','UserController');
        Route::resource('comments','CommentController');
