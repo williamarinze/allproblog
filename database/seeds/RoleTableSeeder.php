@@ -16,10 +16,10 @@ class RoleTableSeeder extends Seeder
         DB::beginTransaction();
 
     	Role::firstOrCreate([
-    		'name' => 'Regular'
+    		'name' => 'regular'
     	]);
     	Role::firstOrCreate([
-    		'name' => 'Admin'
+    		'name' => 'admin'
     	]);
 
     	DB::commit();

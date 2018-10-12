@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 // protected routes
 Route::group(['middleware' => ['api', 'auth']], function () {
 
-//Authentication routes
+    //Authentication routes
     Route::group(['middleware' => 'api','prefix' => 'auth'],function ($router) {
 
 
@@ -27,13 +27,20 @@ Route::group(['middleware' => ['api', 'auth']], function () {
        Route::post('me', 'AuthController@me');
 
  });
-
-     Route::resource('users','UserController');
-     Route::resource('comments','CommentController');
-     Route::resource('posts','PostController');
+       //reset password routes
+  	   Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
+       Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    
+       Route::resource('users','UserController');
+       Route::resource('comments','CommentController');
+       Route::resource('posts','PostController');
 });
 
+//Admin routes
+Route::group(['middleware' => ['api', 'admin']], function () {
+     Route::delete('users/{id}', 'UserController@destroy');
 
+});
 
 
 // public routes

@@ -25,7 +25,7 @@ class UserController extends Controller {
       'name' => 'required|string',
       'email' => 'required|email',
       'password' => 'required',
-      'role_id' => 'required',
+      'role' => 'required|string',
     ];
   }
    protected function beforeStore(array &$data)
