@@ -38,7 +38,7 @@ Route::group(['middleware' => ['api', 'auth']], function () {
 //Admin routes
 Route::group(['middleware' => ['api', 'admin']], function () {
      Route::delete('users/{id}', 'UserController@destroy');
-
+     Route::delete('posts/{id}', 'PostController@destroy');
 });
 
 

@@ -6,31 +6,31 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Hash;
+use Laraquick\Controllers\Traits\Respond; 
 
 class ResetPasswordController extends Controller
 {
+	use Respond;
 
-	   public function changePassword(Request $request){
+	public function changePassword(Request $request) {
 
-    	$user = Auth::user();
+		$request->validate([
+			'oldPassword' => 'required',
+			'newPassword' => 'required'
+		]); 
 
-    	$oldPassword = $request->input['oldPassword'];
-    	$newPassword = $request->input['newPassword'];
+		$user = Auth::user();
 
-    	if (Hash::check($oldPassword, $user->password)) {
+    	if (Hash::check($request->oldPassword, $user->password)) {
+        	$user->password = Hash::make($request->newPassword);
+        	$user->save();
 
-        	$user_id = $user->id;
-        	$obj_user = User::find($user_id)->first();
-        	$obj_user->password = Hash::make($newPassword);
-        	$obj_user->save();
-
-        	return response()->json(["result"=>true]);
+        	return [
+        		'status' => 'password changed succesfully'
+        	];
         }
-
-    	else
-			{
-
-        		return response()->json(["result"=>false]);
-    		}
+    	else {
+        	return $this->error('Incorrect password');;
     	}
+    }
 }
